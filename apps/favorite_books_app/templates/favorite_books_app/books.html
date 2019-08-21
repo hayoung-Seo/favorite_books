@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Favorite Books</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'favorite_books_app/css/style.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+                <h3>Welcome, {{session.request.user_fname}}</h3>
+            </div>
+            <div class="col-sm-2">
+                <a href="/user">Your favorite books</a>
+            </div>
+            <div class="col-sm-1">
+                <a href="logout">Log Out</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4">
+                <h4>Add a Favorite Book</h4>
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="error">{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+                <form action="/upload_fav_book" method="post">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="title" class="col-sm-4">Title</label>
+                        <input type="text" class="col-sm-8 form-control" id="title" name="title">
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-sm-4">Description</label>
+                        <input type="text" class="col-sm-8 form-control" id="description" name="description">
+                    </div>
+                    <button type="submit" class="btn btn-primary offset-sm-5">Add</button>
+                </form>
+            </div>
+
+            <div class="col-sm-6 offset-sm-1">
+                <h4>All Books</h4>
+                {% for book in books %}
+                    <div>
+                        <div class="row bordered">
+                            <div class="col">
+                                <a href="/books/{{book.id}}" class="row">{{book.title}}</a>
+                                <p>
+                                    (added by {{book.uploaded_by.first_name}} {{book.uploaded_by.last_name}})
+                                </p>
+                            </div>
+
+                            <div class="col">
+                                {% if cur_user in book.liked_by.all %}
+                                <p>
+                                    <span class="italic">
+                                        this is one of your favorites
+                                    </span>
+                                </p>
+                                {% else %}
+                                    <p>
+                                        <a href="/books/add_to_favorite/{{book.id}}" class="btn btn-success">Add to Favorites</a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                        
+                        
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+        
+    </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login & Registration</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'favorite_books_app/css/style.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body class="container-fluid col-sm-10 offset-sm-1">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Registration</h2>
+                <form action="register" method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'first_name' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row form-group">
+                        <label for="first_name" class="col-sm-4">First Name</label>
+                        <input type="text" class="col-sm-8 form-control" id="first_name" name="first_name"
+                            {% if messages %} value="{{request.session.tmp_inputs.first_name}}" {% endif %}>
+                    </div>
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'last_name' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row form-group">
+                        <label for="last_name" class="col-sm-4">Last Name</label>
+                        <input type="text" class="col-sm-8 form-control" id="last_name" name="last_name"
+                            {% if messages %} value="{{request.session.tmp_inputs.last_name}}" {% endif %}>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'email' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row form-group">
+                        <label for="email" class="col-sm-4">Email</label>
+                        <input type="text" class="col-sm-8 form-control" id="email" name="email"
+                            {% if messages %} value="{{request.session.tmp_inputs.email}}" {% endif %}>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'password' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    <div class="row form-group">
+                        <label for="password" class="col-sm-4">Password</label>
+                        <input type="password" class="col-sm-8 form-control" id="password" name="password">
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'confirm_password' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row form-group">
+                        <label for="confirm_password" class="col-sm-4">Confirm Password</label>
+                        <input type="password" class="col-sm-8 form-control" id="confirm_password" name="confirm_password">
+                    </div>
+                    <button type="submit" class="btn btn-primary offset-sm-5">Register</button>
+                </form>
+            </div>
+
+            <div class="col-sm-6">
+                <h2>Login</h2>
+                <form action="login_try" method="post">
+                    {% csrf_token %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            {% if 'login' in message.tags %}
+                                <p class="error">{{message}}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <div class="row form-group">
+                        <label for="login_email" class="col-sm-4">Email</label>
+                        <input type="text" class="col-sm-8 form-control" id="login_email" name="login_email">
+                    </div>
+
+                    <div class="row form-group">
+                        <label for="login_password" class="col-sm-4">Password</label>
+                        <input type="password" class="col-sm-8 form-control" id="login_password" name="login_password">
+                    </div>
+                    <button type="submit" class="btn btn-primary offset-sm-5">Login</button>
+                </form>
+
+            </div>
+        </div>
+        
+    </body>
+</html>

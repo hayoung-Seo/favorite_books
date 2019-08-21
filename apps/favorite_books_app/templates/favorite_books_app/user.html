@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>User's favorite books</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'favorite_books_app/css/style.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body class="container-fluid">
+        <div class="row">
+            <h3 class="col-sm-10">Welcome, {{request.session.user_fname}}</h3>
+            <a href="/books" class="col-sm-1">Go Back</a>
+            <a href="/logout" class="col-sm-1">Log Out</a>
+        </div>
+        <div class="col-sm-4 offset-sm-2">
+            {% for book in favorite_books.all %}
+            <div class="bordered">
+                <p>Book title: <a href="/books/{{book.id}}">{{book.title}} </a></p>
+                <p>Book description: {{book.desc}}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

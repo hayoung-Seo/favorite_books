@@ -1,0 +1,29 @@
+* {
+    /* border : 1px solid pink; */
+}
+.error {
+    color: red;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.btn {
+    margin-left: 10px;
+}
+
+.success {
+    color: green;
+}
+
+.bordered {
+    border: 1px solid #d3b3f2;
+    padding: 3px;
+    margin: 3px;
+}
